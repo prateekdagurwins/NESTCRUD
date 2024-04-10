@@ -50,18 +50,21 @@ export class UserController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   findOne(@Param('id') id: string): Promise<IUser> {
     const condition = {id:id}
     return this.usersService.findOneUser(condition);
   }
 
   @Put(':id')
+  @UseGuards(JwtAuthGuard)
   update(@Param('id') id: string, @Body() user: IUser): Promise<UserEntity> {
     let condition = {id: id}
     return this.usersService.update(condition, user);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string): Promise<void> {
     return this.usersService.remove(id);
   }
